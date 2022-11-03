@@ -39,6 +39,16 @@ class ListaClass(ListaLigadasAbstract):
                posicion = posicion.siguiente
            return posicion != None
        return False
+   
+    def repeticiones(self,elemento):
+       cuantos = 0
+       if(not self.esta_vacia()):
+           posicion = self.inicio
+           while(posicion!=None):
+               if (posicion.elemento == elemento):
+                   cuantos += 1
+               posicion = posicion.siguiente
+       return cuantos
            
     
     def primer_elemento(self):
