@@ -22,6 +22,6 @@ arbolito.recorrido_postorden()
 ##print("Contiene", arbolito.contiene(80))
 
 
-arbolito.eliminar(5)
+arbolito.eliminar(8)
 
 arbolito.recorrid_preorden()

@@ -1,16 +1,5 @@
 from ABBAbstract import  ArbolBuscable
-"""
-Clase Nodo que representa las cajas donde se 
-guarda cada elemento del árbol
-"""
-class Nodo:
-    def __init__(self, elemento=None, izquierdo=None,derecho=None):
-        self.elemento = elemento
-        self.izquierdo = izquierdo
-        self.derecho = derecho
-        
-    def __str__(self):
-        return str(self.elemento)
+from Nodo import Nodo
     
 """
 Se implementa la clase ABB
@@ -30,14 +19,11 @@ class ABB(ArbolBuscable):
     def tamanio(self):
         return self.cuantos
     
-
     def agregar(self,elemento):
         self.aux_agregar(elemento,self.raiz)
         print("Raíz:: ", self.raiz)
         
-        
     def aux_agregar(self,elemento,nodo):
-        
         if nodo==None:
             nodo = Nodo(elemento)
             print("Add: ",nodo)
@@ -54,20 +40,32 @@ class ABB(ArbolBuscable):
         
         return nodo
             
-
-            
-            
     def eliminar(self,elemento):
-        pass
+        self.raiz =  self.aux_eliminar(elemento, self.raiz)
     
     def aux_eliminar(self,elemento,nodo):
-        pass
+        if nodo == None:
+            return nodo
+        #Buscamos el nodo que contiene el elemento que se desea eliminar
+        elif elemento < nodo.elemento:
+            nodo.izquierdo = self.aux_eliminar(elemento, nodo.izquierdo)
+        elif elemento > nodo.elemento:
+            nodo.derecho = self.aux_eliminar(elemento, nodo.derecho)
+        #Caso 1: Si es un Nodo con los dos hijos: izquierdo y derecho
+        elif nodo.izquierdo != None and nodo.derecho != None:
+            print("Eliminar nodo que no es hoja,,,")
+            nodo.elemento = self.aux_minimo(nodo.derecho).elemento
+            print("el más pequeño es" ,nodo.elemento)
+            nodo.derecho = self.aux_eliminar(nodo.elemento, nodo.derecho)
+        else: 
+        #Caso 2: 
+            nodo = nodo.izquierdo if (nodo.izquierdo!=None) else nodo.derecho
+        return nodo
                 
  
-    
     def encontrar_minimo(self):
         min = self.aux_minimo(self.raiz);
-        
+        print("Minio",min)
         return min
     
     def aux_minimo(self, nodo):
@@ -81,7 +79,6 @@ class ABB(ArbolBuscable):
     
     def encontrar_maximo(self):
         max = self.aux_maximo(self.raiz);
-        
         return max
     
     def aux_maximo(self, nodo):
@@ -89,7 +86,6 @@ class ABB(ArbolBuscable):
             return None
         elif nodo.derecho == None:
             return nodo
-        
         return self.aux_maximo(nodo.derecho)
             
     
@@ -148,4 +144,4 @@ class ABB(ArbolBuscable):
             else:
                 return True
             
-                
+            
